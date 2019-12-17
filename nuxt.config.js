@@ -1,9 +1,10 @@
 
 export default {
   mode: 'spa',
-  /*
-  ** Headers of the page
-  */
+  srcDir: 'src',
+  env: {
+    serverUrl: process.env.SERVER_URL || 'http://0.0.0.0:3000'
+  },
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -15,52 +16,27 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-  /*
-  ** Global CSS
-  */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '~/styles/common.styl'
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/apiClient',
+    '@/plugins/element-ui',
+    '@/plugins/vue-awesome',
+    '@/plugins/dayjs'
   ],
-  /*
-  ** Nuxt.js dev-modules
-  */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
-  },
-  /*
-  ** Build configuration
-  */
+  axios: {},
   build: {
     transpile: [/^element-ui/],
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
     }
   }
