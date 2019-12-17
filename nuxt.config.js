@@ -25,7 +25,8 @@ export default {
     '@/plugins/apiClient',
     '@/plugins/element-ui',
     '@/plugins/vue-awesome',
-    '@/plugins/dayjs'
+    '@/plugins/dayjs',
+    '@/plugins/firebase'
   ],
   buildModules: [
     '@nuxtjs/eslint-module'
