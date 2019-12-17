@@ -1,5 +1,5 @@
 <template lang="pug">
-.index
+.signin
 </template>
 
 <script>
