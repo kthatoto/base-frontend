@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 export default {
   mode: 'spa',
   srcDir: 'src',
@@ -16,11 +17,6 @@ export default {
     ]
   },
   loading: { color: '#fff' },
-  css: [
-    'element-ui/lib/theme-chalk/index.css',
-    '~/styles/common.styl',
-    '~/styles/sign_form.styl'
-  ],
   plugins: [
     '@/plugins/apiClient',
     '@/plugins/element-ui',
@@ -34,7 +30,14 @@ export default {
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    ['nuxt-stylus-resources-loader', [
+      resolve(__dirname, 'src/styles/sign_form.styl')
+    ]]
+  ],
+  css: [
+    '~/styles/common.styl',
+    'element-ui/lib/theme-chalk/index.css'
   ],
   axios: {},
   build: {
