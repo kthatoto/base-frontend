@@ -18,14 +18,16 @@ export default {
   loading: { color: '#fff' },
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    '~/styles/common.styl'
+    '~/styles/common.styl',
+    '~/styles/sign_form.styl'
   ],
   plugins: [
     '@/plugins/apiClient',
     '@/plugins/element-ui',
     '@/plugins/vue-awesome',
     '@/plugins/dayjs',
-    '@/plugins/firebase'
+    '@/plugins/firebase',
+    '@/plugins/globalComponents'
   ],
   buildModules: [
     '@nuxtjs/eslint-module'
