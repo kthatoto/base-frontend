@@ -11,7 +11,8 @@
         el-input(v-model="form.email")
       el-form-item(label="password" prop="password")
         el-input(v-model="form.password" type="password")
-      el-form-item.-longLabel(label="password confirmation" prop="passwordConfirmation")
+      el-form-item.-longLabel(label="password confirmation" prop="passwordConfirmation"
+        :error="errors.passwordConfirmation")
         el-input(v-model="form.passwordConfirmation" type="password")
       el-button.signup__button(@click="signup" type="primary") signup
     Link(to="/signin") Singin
@@ -29,14 +30,28 @@ export default {
         failed: false
       },
       rules: {
-        email: [{ required: true }],
-        password: [{ required: true }],
-        passwordConfirmation: [{ required: true }]
-      }
+        email: [{ required: true }, { type: 'email', trigger: 'blur' }],
+        password: [{ required: true }]
+      },
+      errors: { email: null, password: null, passwordConfirmation: null }
     }
   },
   methods: {
+    customValidate () {
+      if (this.form.password !== this.form.passwordConfirmation) {
+        this.errors.passwordConfirmation = 'password does not match to confirmation'
+      }
+      return Object.values(this.errors).every(v => v === null)
+    },
+    clearErrors () {
+      this.errors = { email: null, password: null, passwordConfirmation: null }
+    },
     async signup () {
+      this.clearErrors()
+      const valid = await this.$refs.form.validate()
+      const customValid = await this.customValidate()
+      if (!(valid && customValid)) { return }
+      console.log('ok')
     }
   }
 }
