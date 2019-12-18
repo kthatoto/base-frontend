@@ -3,7 +3,7 @@ export default {
   mode: 'spa',
   srcDir: 'src',
   env: {
-    serverUrl: process.env.SERVER_URL || 'http://0.0.0.0:3000'
+    serverUrl: process.env.SERVER_URL
   },
   head: {
     title: process.env.npm_package_name || '',
