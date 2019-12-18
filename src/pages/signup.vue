@@ -31,7 +31,8 @@ export default {
       },
       alert: {
         type: null, // 'error' | 'success'
-        message: ''
+        message: '',
+        showing: false
       },
       rules: {
         email: [{ required: true }, { type: 'email', trigger: 'blur' }],
@@ -54,6 +55,7 @@ export default {
     },
     clearErrors () {
       this.errors = { email: null, password: null, passwordConfirmation: null }
+      this.alert = { type: null, message: '', showing: false }
     },
     async signup () {
       this.clearErrors()
