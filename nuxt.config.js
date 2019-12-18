@@ -5,9 +5,6 @@ dotenv.config()
 export default {
   mode: 'spa',
   srcDir: 'src',
-  env: {
-    serverUrl: process.env.SERVER_URL
-  },
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -33,7 +30,7 @@ export default {
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { path: '.' }],
     ['nuxt-stylus-resources-loader', [
       resolve(__dirname, 'src/styles/sign_form.styl')
     ]]
