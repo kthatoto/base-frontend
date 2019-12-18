@@ -18,6 +18,7 @@
     "element-ui": "^2.4.11",
     "firebase": "^7.6.0",
     "nuxt": "^2.0.0",
+    "nuxt-stylus-resources-loader": "^2.0.0",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.7",
