@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import firebase from 'firebase'
+import 'firebase/auth'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(

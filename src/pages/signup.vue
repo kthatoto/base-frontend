@@ -5,8 +5,8 @@
       h2 Signup
     el-form.signup__form(label-width="90px" :model="form" ref="form" :rules="rules")
       transition(name="alert")
-        el-alert.signup__alert(v-if="form.failed" @close="form.failed = false"
-          type="error" title="signup failed" show-icon)
+        el-alert.signup__alert(v-if="form.successed" @close="form.successed = false"
+          type="error" title="Signup successed" show-icon)
       el-form-item(label="email" prop="email")
         el-input(v-model="form.email")
       el-form-item(label="password" prop="password")
@@ -27,7 +27,7 @@ export default {
         email: '',
         password: '',
         passwordConfirmation: '',
-        failed: false
+        successed: false
       },
       rules: {
         email: [{ required: true }, { type: 'email', trigger: 'blur' }],
@@ -35,6 +35,10 @@ export default {
       },
       errors: { email: null, password: null, passwordConfirmation: null }
     }
+  },
+  created () {
+    console.log(process.env.serverUrl)
+    console.log(process.env)
   },
   methods: {
     customValidate () {
@@ -51,7 +55,11 @@ export default {
       const valid = await this.$refs.form.validate()
       const customValid = await this.customValidate()
       if (!(valid && customValid)) { return }
-      console.log('ok')
+      const res = await this.$firebase.auth().createUserWithEmailAndPassword(
+        this.professional.email, this.password
+      )
+      await res.user.sendEmailVerification()
+      this.form.successed = true
     }
   }
 }
