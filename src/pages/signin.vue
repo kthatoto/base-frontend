@@ -3,7 +3,7 @@
   el-card.signin__card
     .signin__header(slot="header")
       h2 Signin
-    el-form.signin__form(label-width="85px" :model="form" ref="form" :rules="rules")
+    el-form.signin__form(label-width="90px" :model="form" ref="form" :rules="rules")
       transition(name="alert")
         el-alert.signin__alert(v-if="form.failed" @close="form.failed = false"
           type="error" title="Signin failed" show-icon)

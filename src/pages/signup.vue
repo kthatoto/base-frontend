@@ -3,7 +3,7 @@
   el-card.signup__card
     .signup__header(slot="header")
       h2 Signup
-    el-form.signup__form(label-width="85px" :model="form" ref="form" :rules="rules")
+    el-form.signup__form(label-width="90px" :model="form" ref="form" :rules="rules")
       transition(name="alert")
         el-alert.signup__alert(v-if="form.failed" @close="form.failed = false"
           type="error" title="signup failed" show-icon)
@@ -11,6 +11,8 @@
         el-input(v-model="form.email")
       el-form-item(label="password" prop="password")
         el-input(v-model="form.password" type="password")
+      el-form-item.-longLabel(label="password confirmation" prop="passwordConfirmation")
+        el-input(v-model="form.passwordConfirmation" type="password")
       el-button.signup__button(@click="signup" type="primary") signup
     Link(to="/signin") Singin
 </template>
@@ -23,11 +25,13 @@ export default {
       form: {
         email: '',
         password: '',
+        passwordConfirmation: '',
         failed: false
       },
       rules: {
         email: [{ required: true }],
-        password: [{ required: true }]
+        password: [{ required: true }],
+        passwordConfirmation: [{ required: true }]
       }
     }
   },
@@ -40,4 +44,8 @@ export default {
 
 <style lang="stylus" scoped>
 sign-form(signup)
+.signup
+  .-longLabel
+    >>> .el-form-item__label
+      line-height: 20px
 </style>
