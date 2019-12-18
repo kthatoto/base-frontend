@@ -5,8 +5,8 @@
       h2 Signup
     el-form.signup__form(label-width="90px" :model="form" ref="form" :rules="rules")
       transition(name="alert")
-        el-alert.signup__alert(v-if="form.successed" @close="form.successed = false"
-          type="error" title="Signup successed" show-icon)
+        el-alert.signup__alert(v-if="alert.showing" @close="alert.showing = false"
+          :type="alert.type" :title="alert.message" show-icon)
       el-form-item(label="email" prop="email")
         el-input(v-model="form.email")
       el-form-item(label="password" prop="password")
@@ -26,8 +26,11 @@ export default {
       form: {
         email: '',
         password: '',
-        passwordConfirmation: '',
-        successed: false
+        passwordConfirmation: ''
+      },
+      alert: {
+        type: null, // 'error' | 'success'
+        message: ''
       },
       rules: {
         email: [{ required: true }, { type: 'email', trigger: 'blur' }],
@@ -35,6 +38,11 @@ export default {
       },
       errors: { email: null, password: null, passwordConfirmation: null }
     }
+  },
+  created () {
+    this.form.email = 'kthatoto@gmail.com'
+    this.form.password = 'password'
+    this.form.passwordConfirmation = 'password'
   },
   methods: {
     customValidate () {
@@ -52,10 +60,13 @@ export default {
       const customValid = await this.customValidate()
       if (!(valid && customValid)) { return }
       const res = await this.$firebase.auth().createUserWithEmailAndPassword(
-        this.professional.email, this.password
-      )
+        this.form.email, this.form.password
+      ).catch((error) => {
+        this.alert = { type: 'error', message: error.message, showing: true }
+      })
+      if (!res) { return }
       await res.user.sendEmailVerification()
-      this.form.successed = true
+      this.alert = { type: 'success', message: 'Signup successed', showing: true }
     }
   }
 }
