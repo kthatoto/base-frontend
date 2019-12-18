@@ -14,7 +14,7 @@
       el-form-item.-longLabel(label="password confirmation" prop="passwordConfirmation"
         :error="errors.passwordConfirmation")
         el-input(v-model="form.passwordConfirmation" type="password")
-      el-button.signup__button(@click="signup" type="primary") signup
+      el-button.signup__button(@click="signup" type="primary" :loading="form.loading") signup
     Link(to="/signin") Singin
 </template>
 
@@ -26,7 +26,8 @@ export default {
       form: {
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        loading: false
       },
       alert: {
         type: null, // 'error' | 'success'
@@ -59,13 +60,16 @@ export default {
       const valid = await this.$refs.form.validate()
       const customValid = await this.customValidate()
       if (!(valid && customValid)) { return }
+      this.form.loading = true
       const res = await this.$firebase.auth().createUserWithEmailAndPassword(
         this.form.email, this.form.password
       ).catch((error) => {
         this.alert = { type: 'error', message: error.message, showing: true }
+        this.form.loading = false
       })
       if (!res) { return }
       await res.user.sendEmailVerification()
+      this.form.loading = false
       this.alert = { type: 'success', message: 'Signup successed', showing: true }
     }
   }
