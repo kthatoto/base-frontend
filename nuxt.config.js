@@ -1,4 +1,7 @@
 import { resolve } from 'path'
+import dotenv from 'dotenv'
+dotenv.config()
+
 export default {
   mode: 'spa',
   srcDir: 'src',

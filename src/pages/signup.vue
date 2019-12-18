@@ -36,10 +36,6 @@ export default {
       errors: { email: null, password: null, passwordConfirmation: null }
     }
   },
-  created () {
-    console.log(process.env.serverUrl)
-    console.log(process.env)
-  },
   methods: {
     customValidate () {
       if (this.form.password !== this.form.passwordConfirmation) {
