@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import firebase from 'firebase'
 
 if (!firebase.apps.length) {
@@ -12,5 +13,5 @@ if (!firebase.apps.length) {
     }
   )
 }
-
-export default firebase
+Vue.prototype.$firebase = firebase
+export default ({ app }, inject) => { app.firebase = firebase }
