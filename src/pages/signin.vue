@@ -26,7 +26,7 @@ export default {
         failed: false
       },
       rules: {
-        email: [{ required: true }],
+        email: [{ required: true }, { type: 'email', trigger: 'blur' }],
         password: [{ required: true }]
       }
     }
