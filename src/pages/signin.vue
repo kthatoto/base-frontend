@@ -5,13 +5,13 @@
       h2 Signin
     el-form.signin__form(label-width="90px" :model="form" ref="form" :rules="rules")
       transition(name="alert")
-        el-alert.signin__alert(v-if="form.failed" @close="form.failed = false"
-          type="error" title="Signin failed" show-icon)
+        el-alert.signin__alert(v-if="alert.showing" @close="alert.showing = false"
+          :type="alert.type" :title="alert.message" show-icon)
       el-form-item(label="email" prop="email")
         el-input(v-model="form.email")
       el-form-item(label="password" prop="password")
         el-input(v-model="form.password" type="password")
-      el-button.signin__button(@click="signin" type="primary") signin
+      el-button.signin__button(@click="signin" type="primary" :loading="form.loading") signin
     Link(to="/signup") Singup
 </template>
 
@@ -23,7 +23,12 @@ export default {
       form: {
         email: '',
         password: '',
-        failed: false
+        loading: false
+      },
+      alert: {
+        type: null, // 'error'
+        message: '',
+        showing: false
       },
       rules: {
         email: [{ required: true }, { type: 'email', trigger: 'blur' }],
@@ -32,22 +37,28 @@ export default {
     }
   },
   methods: {
+    clearAlerts () {
+      this.alert = { type: null, message: '', showing: false }
+    },
     async signin () {
-      // const valid = await this.$refs.form.validate()
-      // if (!valid) { return }
-      // firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
-      //   .then(() => {
-      //     if (this.$route.query.redirect) {
-      //       this.$router.push(this.$route.query.redirect)
-      //     } else {
-      //       this.$router.push('/')
-      //     }
-      //   }).catch(_ => {
-      //     store.dispatch(SET_ALERT_MESSAGE, {
-      //       message: 'ログインに失敗しました',
-      //       type: 'danger'
-      //     })
-      //   })
+      this.clearAlerts()
+      const valid = await this.$refs.form.validate()
+      if (!valid) { return }
+      this.form.loading = true
+      const res = await this.$firebase.auth().signInWithEmailAndPassword(
+        this.form.email, this.form.password
+      ).catch((error) => {
+        this.alert = { type: 'error', message: error.message, showing: true }
+        this.form.loading = false
+      })
+      if (!res) { return }
+      this.form.loading = false
+      this.$router.push('/signin')
+      this.$message({
+        message: 'Signin successful',
+        type: 'success',
+        duration: 3000
+      })
     }
   }
 }
