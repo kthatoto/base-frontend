@@ -1,5 +1,6 @@
 export default {
-  setUserToken (state, token) {
-    state.user.token = token
+  setUser (state, user) {
+    state.user.uid = user.uid
+    state.user.email = user.email
   }
 }

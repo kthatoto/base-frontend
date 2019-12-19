@@ -1,8 +1,8 @@
 export default {
   signin ({ commit }, user) {
-    commit('setUserToken', user.qa)
+    commit('setUser', { uid: user.uid, email: user.email })
   },
   signout ({ commit }) {
-    commit('setUserToken', null)
+    commit('setUser', { uid: null, email: null })
   }
 }

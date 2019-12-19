@@ -1,5 +1,5 @@
-export default = {
-  getUserToken (state) {
-    return state.user.token
+export default {
+  getUser (state) {
+    return state.user
   }
 }
