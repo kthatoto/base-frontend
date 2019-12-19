@@ -72,7 +72,13 @@ export default {
       if (!res) { return }
       await res.user.sendEmailVerification()
       this.form.loading = false
-      this.alert = { type: 'success', message: 'Signup successed', showing: true }
+      this.$router.push('/signin')
+      this.$message({
+        message: 'Signup successful. Confirmation mail is sent',
+        type: 'success',
+        duration: 10000,
+        showClose: true
+      })
     }
   }
 }
