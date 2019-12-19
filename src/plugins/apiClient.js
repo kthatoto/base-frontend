@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import axios from 'axios'
 
 const apiClient = (method, url, data = null) => {
@@ -9,6 +8,4 @@ const apiClient = (method, url, data = null) => {
     headers: { Authorization: localStorage.queyToken }
   }).catch((err) => { return err.response })
 }
-
-Vue.prototype.$apiClient = apiClient
-export default ({ app }, inject) => { app.apiClient = apiClient }
+export default ({ app }, inject) => { inject('apiClient', apiClient) }
