@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  layout: 'blank',
   middleware: 'shouldGuest',
   data () {
     return {

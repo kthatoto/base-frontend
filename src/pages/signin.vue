@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  layout: 'blank',
   middleware: 'shouldGuest',
   data () {
     return {
@@ -53,7 +54,7 @@ export default {
       })
       if (!res) { return }
       this.form.loading = false
-      this.$router.push('/signin')
+      this.$router.push('/')
       this.$message({
         message: 'Signin successful',
         type: 'success',

@@ -32,7 +32,8 @@ export default {
     '@nuxtjs/axios',
     ['@nuxtjs/dotenv', { path: '.' }],
     ['nuxt-stylus-resources-loader', [
-      resolve(__dirname, 'src/styles/sign_form.styl')
+      resolve(__dirname, 'src/styles/sign_form.styl'),
+      resolve(__dirname, 'src/styles/variables.styl')
     ]]
   ],
   css: [
