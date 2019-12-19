@@ -1,5 +1,5 @@
 export default (context) => {
-  // if (false) {
-  //   context.redirect('/')
-  // }
+  context.app.firebase.auth().onAuthStateChanged((user) => {
+    console.log(user)
+  })
 }

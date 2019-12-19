@@ -37,6 +37,10 @@ export default {
       }
     }
   },
+  created () {
+    this.form.email = 'kthatoto@gmail.com'
+    this.form.password = 'password'
+  },
   methods: {
     clearAlerts () {
       this.alert = { type: null, message: '', showing: false }
@@ -55,11 +59,7 @@ export default {
       if (!res) { return }
       this.form.loading = false
       this.$router.push('/')
-      this.$message({
-        message: 'Signin successful',
-        type: 'success',
-        duration: 3000
-      })
+      this.$message({ message: 'Signin successful', type: 'success', duration: 3000 })
     }
   }
 }

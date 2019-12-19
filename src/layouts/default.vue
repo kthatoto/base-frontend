@@ -1,19 +1,23 @@
 <template lang="pug">
 el-container.default
   el-header.default__header
-      el-dropdown.dropdown
+      el-dropdown.dropdown(trigger="click" @command="handleCommand")
         el-button.dropdown__button
           icon.icon(name="user")
         el-dropdown-menu(slot="dropdown")
-          el-dropdown-item signout
+          el-dropdown-item(command="signout") signout
   nuxt.root
 </template>
 
 <script>
 export default {
   methods: {
+    handleCommand (command) {
+      this[command]()
+    },
     async signout () {
       await this.$firebase.auth().signOut()
+      this.$message({ message: 'Signout successful', type: 'success', duration: 5000 })
       this.$router.push('/signin')
     }
   }
