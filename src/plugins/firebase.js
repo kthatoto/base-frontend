@@ -13,4 +13,14 @@ if (!firebase.apps.length) {
     }
   )
 }
-export default ({ app }, inject) => { inject('firebase', firebase) }
+
+export default ({ app, store }, inject) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      store.dispatch('signin', { uid: user.uid, email: user.email })
+    } else {
+      store.dispatch('signout')
+    }
+  })
+  inject('firebase', firebase)
+}
