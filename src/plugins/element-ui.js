@@ -3,4 +3,4 @@ import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(Element, { locale })
-export default ({ app }, inject) => { app.message = Element.Message }
+export default ({ app }, inject) => { inject('message', Element.Message) }
