@@ -17,8 +17,8 @@
 
 <script>
 export default {
+  meta: { shouldGuest: true },
   layout: 'blank',
-  middleware: 'shouldGuest',
   data () {
     return {
       form: {
