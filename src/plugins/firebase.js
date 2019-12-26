@@ -14,12 +14,19 @@ if (!firebase.apps.length) {
   )
 }
 
-export default ({ app, store }, inject) => {
+export default ({ app, store, redirect }, inject) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       store.dispatch('signin', { uid: user.uid, email: user.email })
+      if (app.context.from.meta[0].shouldGuest) {
+        return redirect('/')
+      }
     } else {
       store.dispatch('signout')
+      if (app.context.from.meta[0].auth) {
+        app.$message({ message: 'Please signin', type: 'warning', duration: 5000 })
+        return redirect('/signin')
+      }
     }
   })
   inject('firebase', firebase)
