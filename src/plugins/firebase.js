@@ -24,9 +24,13 @@ export default ({ app, store, redirect }, inject) => {
       }
       return
     }
-    store.dispatch('signin', { uid: user.uid, email: user.email })
+    store.dispatch('signin', { uid: user.uid, email: user.email, emailVerified: user.emailVerified })
     if (!user.emailVerified) {
-      app.$message({ message: 'Please confirm your email address', type: 'warning', duration: 5000 })
+      app.$message({
+        message: 'Please confirm your email address',
+        type: 'warning',
+        duration: 5000
+      })
       return redirect('/signin')
     }
     if (app.context.from.meta[0].shouldGuest) {

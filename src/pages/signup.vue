@@ -15,7 +15,8 @@
         :error="errors.passwordConfirmation")
         el-input(v-model="form.passwordConfirmation" type="password")
       el-button.signup__button(@click="signup" type="primary" :loading="form.loading") signup
-    Link(to="/signin") Singin
+    .signup__link
+      Link(to="/signin") Singin
 </template>
 
 <script>

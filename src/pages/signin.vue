@@ -12,7 +12,12 @@
       el-form-item(label="password" prop="password")
         el-input(v-model="form.password" type="password")
       el-button.signin__button(@click="signin" type="primary" :loading="form.loading") signin
-    Link(to="/signup") Singup
+    .signin__link
+      Link(to="/signup") Singup
+    .signin__link
+      Link(to="/password_reset") Password Reset
+    .signin__link(v-if="emailVerified === false")
+      el-link(type="primary" @click="sendEmailVerification") Send confirmation mail
 </template>
 
 <script>
@@ -35,6 +40,11 @@ export default {
         email: [{ required: true }, { type: 'email', trigger: 'blur' }],
         password: [{ required: true }]
       }
+    }
+  },
+  computed: {
+    emailVerified () {
+      return this.$store.state.user.emailVerified
     }
   },
   created () {
@@ -60,6 +70,15 @@ export default {
       if (!res) { return }
       this.form.loading = false
       this.$router.push('/')
+    },
+    async sendEmailVerification () {
+      if (!this.$firebase.auth().currentUser) { return }
+      await this.$firebase.auth().currentUser.sendEmailVerification()
+      this.$message({
+        message: 'Sent confirmation mail',
+        type: 'success',
+        duration: 3000
+      })
     }
   }
 }

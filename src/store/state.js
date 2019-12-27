@@ -1,6 +1,7 @@
 export default () => ({
   user: {
     uid: null,
-    email: null
+    email: null,
+    emailVerified: null
   }
 })
