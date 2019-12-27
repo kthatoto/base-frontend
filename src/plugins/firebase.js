@@ -16,17 +16,21 @@ if (!firebase.apps.length) {
 
 export default ({ app, store, redirect }, inject) => {
   firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      store.dispatch('signin', { uid: user.uid, email: user.email })
-      if (app.context.from.meta[0].shouldGuest) {
-        return redirect('/')
-      }
-    } else {
+    if (!user) {
       store.dispatch('signout')
       if (app.context.from.meta[0].auth) {
         app.$message({ message: 'Please signin', type: 'warning', duration: 5000 })
         return redirect('/signin')
       }
+      return
+    }
+    store.dispatch('signin', { uid: user.uid, email: user.email })
+    if (!user.emailVerified) {
+      app.$message({ message: 'Please confirm your email address', type: 'warning', duration: 5000 })
+      return redirect('/signin')
+    }
+    if (app.context.from.meta[0].shouldGuest) {
+      return redirect('/')
     }
   })
   inject('firebase', firebase)

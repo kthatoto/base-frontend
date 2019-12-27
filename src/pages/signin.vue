@@ -50,6 +50,7 @@ export default {
       const valid = await this.$refs.form.validate()
       if (!valid) { return }
       this.form.loading = true
+      await this.$firebase.auth().signOut()
       const res = await this.$firebase.auth().signInWithEmailAndPassword(
         this.form.email, this.form.password
       ).catch((error) => {
@@ -59,7 +60,6 @@ export default {
       if (!res) { return }
       this.form.loading = false
       this.$router.push('/')
-      this.$message({ message: 'Signin successful', type: 'success', duration: 3000 })
     }
   }
 }
