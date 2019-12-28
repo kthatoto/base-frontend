@@ -11,6 +11,7 @@ el-container.default
 
 <script>
 export default {
+  middleware: 'auth',
   methods: {
     handleCommand (command) {
       this[command]()

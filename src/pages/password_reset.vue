@@ -16,8 +16,8 @@
 
 <script>
 export default {
+  layout: 'beforeSignin',
   meta: { shouldGuest: true },
-  layout: 'blank',
   data () {
     return {
       form: {

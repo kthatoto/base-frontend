@@ -5,8 +5,7 @@
 
 <script>
 export default {
-  meta: { auth: true },
-  middleware: 'auth'
+  meta: { auth: true }
 }
 </script>
 
