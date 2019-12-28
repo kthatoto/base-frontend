@@ -74,10 +74,14 @@ export default {
     async sendEmailVerification () {
       if (!this.$firebase.auth().currentUser) { return }
       await this.$firebase.auth().currentUser.sendEmailVerification()
+      const email = this.$firebase.auth().currentUser.email
+      const style = 'color: black; text-decoration: underline'
       this.$message({
-        message: 'Sent confirmation mail',
+        dangerouslyUseHTMLString: true,
+        message: `Sent confirmation mail to <span style="${style}">${email}</span>`,
         type: 'success',
-        duration: 3000
+        duration: 0,
+        showClose: true
       })
     }
   }
