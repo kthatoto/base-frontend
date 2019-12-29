@@ -5,7 +5,7 @@ const apiClient = (method, url, data = null) => {
     method,
     url: process.env.serverUrl + url,
     data,
-    headers: { Authorization: localStorage.queyToken }
+    headers: { Authorization: localStorage.jwt ? `Bearer ${localStorage.jwt}` : null }
   }).catch((err) => { return err.response })
 }
 export default ({ app }, inject) => { inject('apiClient', apiClient) }
